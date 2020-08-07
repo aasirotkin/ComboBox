@@ -12,9 +12,9 @@ ComboBox::ComboBox(QWidget *parent) :
 
 QString ComboBox::FitInWidth_(const QString &text)
 {
-    static const int sep_length = separator_.length();
-    static const QFontMetrics fm(font());
-    static const int max_width = rect().width() -
+    const int sep_length = separator_.length();
+    const QFontMetrics fm(font());
+    const int max_width = rect().width() -
             view()->verticalScrollBar()->rect().height();
 
     QString final_text("");
