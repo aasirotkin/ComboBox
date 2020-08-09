@@ -62,19 +62,29 @@ void fillCustomLayout(QGridLayout* lay, const QStringList& colors)
                                            "Numbers: by symbol");
     ComboBox* box4 = createCombo<ComboBox>(16, 500,
                                            "Numbers: by words");
+    ComboBox* box5 = createCombo<ComboBox>(12, 500,
+                                           "Colors: no wrap");
+    ComboBox* box6 = createCombo<ComboBox>(12, 500,
+                                           "Numbers: no wrap");
 
-    box2->setWordWrap(true);
-    box4->setWordWrap(true);
+    box1->setWrapPolicy(ComboBox::WrapBySymbols);
+    box2->setWrapPolicy(ComboBox::WrapByWords);
+    box3->setWrapPolicy(ComboBox::WrapBySymbols);
+    box4->setWrapPolicy(ComboBox::WrapByWords);
 
     testColors(box1, colors);
     testColors(box2, colors);
     testNumbers(box3);
     testNumbers(box4);
+    testColors(box5, colors);
+    testNumbers(box6);
 
     lay->addWidget(box1, row, 0);
     lay->addWidget(box2, row, 1);
     lay->addWidget(box3, ++row, 0);
     lay->addWidget(box4, row, 1);
+    lay->addWidget(box5, ++row, 0);
+    lay->addWidget(box6, row, 1);
 }
 
 void fillDefaultLayout(QGridLayout* lay, const QStringList& colors)

@@ -6,13 +6,14 @@
 
 ComboBox::ComboBox(QWidget *parent) :
     QComboBox(parent),
-    wordWrap_(false)
+    wrapPolicy_(NoWrap)
 {
 }
 
 QString ComboBox::FitInWidth_(const QString &text)
 {
     const int sep_length = separator_.length();
+    const bool wrapByWords = (wrapPolicy() == WrapByWords);
     const QFontMetrics fm(font());
     const int max_width = rect().width() -
             view()->verticalScrollBar()->rect().height();
@@ -26,7 +27,7 @@ QString ComboBox::FitInWidth_(const QString &text)
     {
         if (fm.horizontalAdvance(intermediate_text + c) >= max_width)
         {
-            if (isWordWrap())
+            if (wrapByWords)
             {
                 final_text += intermediate_text.leftRef(last_separator);
                 intermediate_text.remove(0, last_separator + sep_length);
@@ -40,7 +41,7 @@ QString ComboBox::FitInWidth_(const QString &text)
             final_text += next_line_;
         }
 
-        if (isWordWrap() && c == separator_)
+        if (wrapByWords && c == separator_)
         {
             last_separator = intermediate_text.length();
         }
@@ -58,15 +59,15 @@ QString ComboBox::FitInWidth_(const QString &text)
 
 void ComboBox::addItem(const QString &text)
 {
-    QComboBox::addItem(FitInWidth_(text));
+    QComboBox::addItem((wrapPolicy() == NoWrap) ? text : FitInWidth_(text));
 }
 
-bool ComboBox::isWordWrap() const
+ComboBox::WrapPolicy ComboBox::wrapPolicy() const
 {
-    return wordWrap_;
+    return wrapPolicy_;
 }
 
-void ComboBox::setWordWrap(bool wordWrap)
+void ComboBox::setWrapPolicy(WrapPolicy wrapPolicy)
 {
-    wordWrap_ = wordWrap;
+    wrapPolicy_ = wrapPolicy;
 }
