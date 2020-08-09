@@ -1,3 +1,8 @@
+In front of you the custom widget ComboBox,
+it has wrap the text property. This property
+will work even if widget has width constraints.
+It is quiet simple, but it works.
+
 Перед Вами представлена попытка сделать виджет QComboBox
 с возможностью многострочного представления элементов списка.
 В базовом варианте исполнения QComboBox сокращает элементы
